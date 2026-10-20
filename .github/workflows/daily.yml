@@ -1,0 +1,25 @@
+name: daily-paper-bot
+on:
+  schedule:
+    - cron: "40 14 * * 1-5"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python bot.py
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+      - run: |
+          git config user.name "gregory-row-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add ledger.csv docs/index.html
+          git diff --cached --quiet || (git commit -m "daily run" && git push)
