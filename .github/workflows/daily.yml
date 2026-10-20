@@ -18,7 +18,7 @@ jobs:
         env:
           ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
           ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
-              - run: |
+                - run: |
           git config user.name "gregory-row-bot"
           git config user.email "bot@users.noreply.github.com"
           git add -A ledger.csv docs 2>/dev/null || true
