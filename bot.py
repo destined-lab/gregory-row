@@ -16,7 +16,8 @@ COLS = ["run_date", "bar_date", "close", "sma", "signal", "action", "notional", 
 
 class Alpaca:
     def __init__(self, key, secret):
-        self.h = {"APCA-API-KEY-ID": key, "APCA-API-SECRET-KEY": secret}
+        clean = lambda v: "".join(c for c in v if c.isascii() and c.isalnum())
+        self.h = {"APCA-API-KEY-ID": clean(key), "APCA-API-SECRET-KEY": clean(secret)}
 
     def _req(self, method, url, **kw):
         r = requests.request(method, url, headers=self.h, timeout=30, **kw)
