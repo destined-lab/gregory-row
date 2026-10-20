@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gregory Row</title>
+<meta name="description" content="Gregory Row members' trading room. Paper account.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#0F2B22; --green-2:#0B221B; --navy:#0B1626; --parch:#E9DFC6; --parch-dim:#B9AE95;
+  --brass:#B69145; --brass-hi:#D9B56A; --ox:#6B1F2A; --wood:#3A2A1C; --sage:#8DBB93; --rose:#D88A86;
+  --serif:"Bodoni Moda",Didot,"Bodoni 72",Georgia,serif; --sans:"Instrument Sans",system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--green-2)}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,var(--green) 0%,var(--green-2) 70%);color:var(--parch);font:16px/1.55 var(--sans);font-variant-numeric:tabular-nums;min-height:100vh}
+a{color:var(--brass-hi)}
+:focus-visible{outline:2px solid var(--brass-hi);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+header.top{display:flex;align-items:center;gap:16px;padding:28px 0 22px;border-bottom:1px solid rgba(182,145,69,.35)}
+.crest{width:58px;height:58px;flex:none}
+.mark h1{font:italic 600 clamp(30px,5vw,46px)/1 var(--serif);margin:0;letter-spacing:.005em}
+.mark p{margin:6px 0 0;color:var(--parch-dim);font-size:14px}
+.clock{margin-left:auto;text-align:right;font-size:13px;color:var(--parch-dim)}
+.clock b{display:block;font:500 22px/1.1 var(--serif);color:var(--parch)}
+.stamp{display:inline-block;margin-top:6px;border:1.5px solid var(--brass);color:var(--brass-hi);padding:2px 9px;font:italic 600 13px var(--serif);transform:rotate(-3deg)}
+.room-frame{margin:26px 0 8px;padding:10px;background:linear-gradient(#4a3523,#2c1f14);border:1px solid #1a110a;box-shadow:inset 0 0 0 1px rgba(182,145,69,.5),0 30px 60px -30px rgba(0,0,0,.8)}
+#room{display:block;width:100%;height:auto}
+#room .plaque{font:italic 600 15px var(--serif);fill:var(--parch)}
+#room .ticker{font:500 15px var(--sans);fill:var(--brass-hi);letter-spacing:.06em}
+.caption{font:italic 15px var(--serif);color:var(--parch-dim);margin:6px 2px 34px}
+h2{font:italic 600 28px/1.15 var(--serif);margin:0 0 14px}
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:44px;margin-bottom:46px}
+dl.statement{margin:0}
+dl.statement div{display:flex;align-items:baseline;gap:8px;padding:9px 0}
+dl.statement dt{color:var(--parch-dim);white-space:nowrap}
+dl.statement div::after{content:"";order:2;flex:1;border-bottom:1px dotted rgba(233,223,198,.35);transform:translateY(-4px)}
+dl.statement dd{order:3;margin:0;font:500 18px var(--serif);white-space:nowrap}
+dl.statement .lead dd{font-size:30px}
+.pos{color:var(--sage)} .neg{color:var(--rose)}
+.chart{background:var(--navy);border:1px solid rgba(182,145,69,.45);padding:14px 14px 8px}
+.chart svg{display:block;width:100%;height:auto}
+.chart .lbl{font:12px var(--sans);fill:var(--parch-dim)}
+.legend{font-size:13px;color:var(--parch-dim);margin:8px 2px 0}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin:0 5px 0 12px;vertical-align:0}
+.roster{list-style:none;margin:0 0 46px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:44px}
+.roster li{display:grid;grid-template-columns:14px 1fr;gap:4px 12px;padding:14px 0;border-top:1px solid rgba(182,145,69,.28)}
+.roster .dot{width:10px;height:10px;border-radius:50%;margin-top:9px;background:var(--brass)}
+.roster .who{font:italic 600 20px/1.2 var(--serif)}
+.roster .who span{font:400 13px var(--sans);font-style:normal;color:var(--parch-dim);margin-left:8px}
+.roster .say{grid-column:2;color:var(--parch);font-size:15px}
+table.book{width:100%;border-collapse:collapse;font-size:15px}
+table.book th{font:italic 500 15px var(--serif);color:var(--parch-dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--brass)}
+table.book td{white-space:nowrap;padding:9px 10px;border-bottom:1px solid rgba(233,223,198,.12)}
+table.book td.n,table.book th.n{text-align:right}
+.ent{font:italic 600 15px var(--serif)}
+.ent.buy{color:var(--sage)} .ent.exit{color:var(--rose)} .ent.hold{color:var(--parch-dim)}
+.empty{color:var(--parch-dim);font-style:italic;font-family:var(--serif);font-size:17px;padding:18px 0}
+footer{margin:54px 0 0;padding:20px 0 40px;border-top:1px solid rgba(182,145,69,.35);color:var(--parch-dim);font-size:14px}
+footer p{margin:4px 0;max-width:70ch}
+.scroll{overflow-x:auto}
+@media (max-width:820px){
+  .grid{grid-template-columns:1fr;gap:34px}
+  .roster{grid-template-columns:1fr}
+  .clock{display:none}
+}
+@media (max-width:560px){ table.book th,table.book td{padding:8px 6px;font-size:14px} table.book .c4{display:none} #room .plaque,#room .ticker{display:none} .room-frame{padding:6px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <svg class="crest" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#B69145" stroke-width="1.6"/><circle cx="32" cy="32" r="25" fill="#0B1626" stroke="#B69145" stroke-width=".8"/><text x="32" y="40" text-anchor="middle" font-family="Bodoni Moda,Didot,Georgia,serif" font-style="italic" font-weight="600" font-size="22" fill="#D9B56A">GR</text><path d="M14 44c4 6 10 9 18 9s14-3 18-9" fill="none" stroke="#B69145" stroke-width="1"/><circle cx="32" cy="11" r="1.6" fill="#D9B56A"/></svg>
+  <div class="mark"><h1>Gregory Row</h1><p>Members' trading room. <span class="stamp">Paper account</span></p></div>
+  <div class="clock"><b id="clock">--:--</b>New York</div>
+</header>
+
+<div class="room-frame"><svg id="room" viewBox="0 0 1000 620" role="img" aria-label="Gregory Row trading room: seven desks around a rug, with Tweed the bulldog walking the floor">
+<defs>
+ <pattern id="parq" width="48" height="48" patternUnits="userSpaceOnUse"><rect width="48" height="48" fill="#2A1D12"/><rect width="24" height="12" fill="#34241A"/><rect x="24" y="12" width="24" height="12" fill="#34241A"/><rect y="24" width="24" height="12" fill="#321F15"/><rect x="24" y="36" width="24" height="12" fill="#321F15"/><path d="M0 0H48M0 12H48M0 24H48M0 36H48" stroke="#1B120B" stroke-width=".8"/></pattern>
+ <pattern id="pin" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="1" height="5" fill="#E9DFC6" opacity=".55"/></pattern>
+ <radialGradient id="lamp" cx="50%" cy="50%" r="60%"><stop offset="0" stop-color="#FFE9B0" stop-opacity=".28"/><stop offset="1" stop-color="#FFE9B0" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1000" height="620" fill="#1B120B"/>
+<rect x="14" y="14" width="972" height="592" fill="url(#parq)" stroke="#B69145" stroke-width="1.5"/>
+<rect x="250" y="26" width="500" height="46" rx="3" fill="#0B1626" stroke="#B69145" stroke-width="1.4"/>
+<text id="ticker" x="500" y="56" text-anchor="middle" class="ticker">Market closed</text>
+<rect x="300" y="226" width="400" height="236" rx="14" fill="#4A1620" stroke="#B69145" stroke-width="2"/>
+<rect x="312" y="238" width="376" height="212" rx="8" fill="none" stroke="#B69145" stroke-width=".8" stroke-dasharray="2 5"/>
+<circle cx="500" cy="344" r="150" fill="url(#lamp)"/>
+<circle cx="500" cy="344" r="48" fill="#3A2A1C" stroke="#B69145" stroke-width="1.5"/>
+<circle cx="500" cy="344" r="12" fill="#B69145"/><circle cx="500" cy="344" r="6" fill="#FFE9B0"/>
+<g id="crest-floor" transform="translate(500 344)" opacity=".0"></g>
+<g id="desk-chairman"><circle cx="500" cy="104" r="21" fill="#4A1620" stroke="#2A0C12" stroke-width="2"/><ellipse cx="500" cy="112" rx="23" ry="12" fill="#17294A"/><circle cx="500" cy="96" r="11" fill="#8D5A3B"/><path d="M489 93 q11 -14 22 0 q-11 -5 -22 0z" fill="#16110D"/><rect x="510" y="107" width="8" height="5" fill="#F3EBD3" transform="rotate(-12 514 110)"/><rect x="432" y="128" width="136" height="46" rx="3" fill="#3A2A1C" stroke="#B69145" stroke-width="1.2"/><rect x="442" y="136" width="54" height="30" rx="1.5" fill="#0B1626" stroke="#B69145" stroke-width=".8"/><rect x="448" y="142" width="42" height="3" fill="#B69145" opacity=".7"/><rect x="448" y="149" width="30" height="3" fill="#B69145" opacity=".45"/><rect x="448" y="156" width="36" height="3" fill="#B69145" opacity=".3"/><rect x="512" y="142" width="26" height="20" rx="1" fill="#E9DFC6" opacity=".92"/><circle id="light-chairman" cx="555" cy="151" r="4.5" fill="#B69145"/><text class="plaque" x="500" y="192" text-anchor="middle">The Chairman</text></g><g id="desk-sterling"><circle cx="185" cy="169" r="21" fill="#4A1620" stroke="#2A0C12" stroke-width="2"/><ellipse cx="185" cy="177" rx="23" ry="12" fill="#A47A45"/><circle cx="185" cy="161" r="11" fill="#C58B5F"/><path d="M174 158 q11 -14 22 0 q-11 -5 -22 0z" fill="#16110D"/><circle cx="189" cy="161" r="5" fill="none" stroke="#B69145" stroke-width="1.6"/><path d="M194 164 q8 8 2 18" fill="none" stroke="#B69145" stroke-width="1"/><rect x="117" y="193" width="136" height="46" rx="3" fill="#3A2A1C" stroke="#B69145" stroke-width="1.2"/><rect x="127" y="201" width="54" height="30" rx="1.5" fill="#0B1626" stroke="#B69145" stroke-width=".8"/><rect x="133" y="207" width="42" height="3" fill="#B69145" opacity=".7"/><rect x="133" y="214" width="30" height="3" fill="#B69145" opacity=".45"/><rect x="133" y="221" width="36" height="3" fill="#B69145" opacity=".3"/><rect x="197" y="207" width="26" height="20" rx="1" fill="#E9DFC6" opacity=".92"/><circle id="light-sterling" cx="240" cy="216" r="4.5" fill="#B69145"/><text class="plaque" x="185" y="257" text-anchor="middle">Sterling</text></g><g id="desk-whitfield"><circle cx="815" cy="169" r="21" fill="#4A1620" stroke="#2A0C12" stroke-width="2"/><ellipse cx="815" cy="177" rx="23" ry="12" fill="#2B2F36"/><circle cx="815" cy="161" r="11" fill="#6B4630"/><path d="M804 158 q11 -14 22 0 q-11 -5 -22 0z" fill="#16110D"/><rect x="806" y="158" width="18" height="6" rx="2" fill="#0A0A0A"/><rect x="747" y="193" width="136" height="46" rx="3" fill="#3A2A1C" stroke="#B69145" stroke-width="1.2"/><rect x="757" y="201" width="54" height="30" rx="1.5" fill="#0B1626" stroke="#B69145" stroke-width=".8"/><rect x="763" y="207" width="42" height="3" fill="#B69145" opacity=".7"/><rect x="763" y="214" width="30" height="3" fill="#B69145" opacity=".45"/><rect x="763" y="221" width="36" height="3" fill="#B69145" opacity=".3"/><rect x="827" y="207" width="26" height="20" rx="1" fill="#E9DFC6" opacity=".92"/><circle id="light-whitfield" cx="870" cy="216" r="4.5" fill="#B69145"/><text class="plaque" x="815" y="257" text-anchor="middle">Whitfield</text></g><g id="desk-professor"><circle cx="140" cy="314" r="21" fill="#4A1620" stroke="#2A0C12" stroke-width="2"/><ellipse cx="140" cy="322" rx="23" ry="12" fill="#6B4A2E"/><circle cx="140" cy="306" r="11" fill="#E0B48D"/><path d="M129 303 q11 -14 22 0 q-11 -5 -22 0z" fill="#16110D"/><circle cx="135" cy="306" r="4.5" fill="none" stroke="#B69145" stroke-width="1.4"/><circle cx="145" cy="306" r="4.5" fill="none" stroke="#B69145" stroke-width="1.4"/><rect x="72" y="338" width="136" height="46" rx="3" fill="#3A2A1C" stroke="#B69145" stroke-width="1.2"/><rect x="82" y="346" width="54" height="30" rx="1.5" fill="#0B1626" stroke="#B69145" stroke-width=".8"/><rect x="88" y="352" width="42" height="3" fill="#B69145" opacity=".7"/><rect x="88" y="359" width="30" height="3" fill="#B69145" opacity=".45"/><rect x="88" y="366" width="36" height="3" fill="#B69145" opacity=".3"/><rect x="152" y="352" width="26" height="20" rx="1" fill="#E9DFC6" opacity=".92"/><circle id="light-professor" cx="195" cy="361" r="4.5" fill="#B69145"/><text class="plaque" x="140" y="402" text-anchor="middle">The Professor</text></g><g id="desk-windsor"><circle cx="860" cy="314" r="21" fill="#4A1620" stroke="#2A0C12" stroke-width="2"/><ellipse cx="860" cy="322" rx="23" ry="12" fill="#1A2D4F"/><ellipse cx="860" cy="322" rx="23" ry="12" fill="url(#pin)"/><circle cx="860" cy="306" r="11" fill="#9A6A47"/><path d="M849 303 q11 -14 22 0 q-11 -5 -22 0z" fill="#16110D"/><path d="M845 313 q15 14 30 0" fill="none" stroke="#F3EBD3" stroke-width="3"/><rect x="792" y="338" width="136" height="46" rx="3" fill="#3A2A1C" stroke="#B69145" stroke-width="1.2"/><rect x="802" y="346" width="54" height="30" rx="1.5" fill="#0B1626" stroke="#B69145" stroke-width=".8"/><rect x="808" y="352" width="42" height="3" fill="#B69145" opacity=".7"/><rect x="808" y="359" width="30" height="3" fill="#B69145" opacity=".45"/><rect x="808" y="366" width="36" height="3" fill="#B69145" opacity=".3"/><rect x="872" y="352" width="26" height="20" rx="1" fill="#E9DFC6" opacity=".92"/><circle id="light-windsor" cx="915" cy="361" r="4.5" fill="#B69145"/><text class="plaque" x="860" y="402" text-anchor="middle">Windsor</text></g><g id="desk-bishop"><circle cx="200" cy="459" r="21" fill="#4A1620" stroke="#2A0C12" stroke-width="2"/><ellipse cx="200" cy="467" rx="23" ry="12" fill="#15171A"/><circle cx="200" cy="451" r="11" fill="#5B3A28"/><path d="M189 448 q11 -14 22 0 q-11 -5 -22 0z" fill="#16110D"/><path d="M188 445 h24 v-6 q-12 -9 -24 0z" fill="#0E0F11" stroke="#B69145" stroke-width="1"/><rect x="188" y="445" width="24" height="3" fill="#B69145"/><rect x="132" y="483" width="136" height="46" rx="3" fill="#3A2A1C" stroke="#B69145" stroke-width="1.2"/><rect x="142" y="491" width="54" height="30" rx="1.5" fill="#0B1626" stroke="#B69145" stroke-width=".8"/><rect x="148" y="497" width="42" height="3" fill="#B69145" opacity=".7"/><rect x="148" y="504" width="30" height="3" fill="#B69145" opacity=".45"/><rect x="148" y="511" width="36" height="3" fill="#B69145" opacity=".3"/><rect x="212" y="497" width="26" height="20" rx="1" fill="#E9DFC6" opacity=".92"/><circle id="light-bishop" cx="255" cy="506" r="4.5" fill="#B69145"/><text class="plaque" x="200" y="547" text-anchor="middle">Bishop</text></g><g id="desk-hartley"><circle cx="800" cy="459" r="21" fill="#4A1620" stroke="#2A0C12" stroke-width="2"/><ellipse cx="800" cy="467" rx="23" ry="12" fill="#5B1B27"/><circle cx="800" cy="451" r="11" fill="#B07A55"/><path d="M789 448 q11 -14 22 0 q-11 -5 -22 0z" fill="#16110D"/><path d="M800 461 l-8 -4 v8z M800 461 l8 -4 v8z" fill="#F3EBD3"/><rect x="732" y="483" width="136" height="46" rx="3" fill="#3A2A1C" stroke="#B69145" stroke-width="1.2"/><rect x="742" y="491" width="54" height="30" rx="1.5" fill="#0B1626" stroke="#B69145" stroke-width=".8"/><rect x="748" y="497" width="42" height="3" fill="#B69145" opacity=".7"/><rect x="748" y="504" width="30" height="3" fill="#B69145" opacity=".45"/><rect x="748" y="511" width="36" height="3" fill="#B69145" opacity=".3"/><rect x="812" y="497" width="26" height="20" rx="1" fill="#E9DFC6" opacity=".92"/><circle id="light-hartley" cx="855" cy="506" r="4.5" fill="#B69145"/><text class="plaque" x="800" y="547" text-anchor="middle">Hartley</text></g>
+<g transform="translate(500 585)"><rect x="-70" y="-24" width="140" height="40" rx="14" fill="#4A1620" stroke="#B69145" stroke-width="1"/><text class="plaque" y="6" text-anchor="middle">Tweed</text></g>
+<g id="tweed"><animateMotion dur="52s" repeatCount="indefinite" rotate="auto" path="M500,212 C563.3,212.0 641.7,200.3 690,215 C738.3,229.7 776.7,264.2 790,300 C803.3,335.8 795.0,389.2 770,430 C745.0,470.8 685.0,524.2 640,545 C595.0,565.8 546.7,555.0 500,555 C453.3,555.0 404.2,565.8 360,545 C315.8,524.2 259.2,470.8 235,430 C210.8,389.2 202.5,335.8 215,300 C227.5,264.2 262.5,229.7 310,215 C357.5,200.3 436.7,212.0 500,212z"/>
+ <g><animateTransform attributeName="transform" type="translate" values="0,0;0,-1.2;0,0" dur=".5s" repeatCount="indefinite"/>
+ <ellipse cx="-3" cy="0" rx="19" ry="11" fill="#C9A272"/>
+ <rect x="-12" y="-11" width="14" height="22" rx="3" fill="#10203B" stroke="#B69145" stroke-width=".8"/>
+ <circle cx="-5" cy="-3" r="1.3" fill="#B69145"/><circle cx="-5" cy="3" r="1.3" fill="#B69145"/>
+ <circle cx="-22" cy="0" r="3" fill="#B58C5E"/>
+ <circle cx="17" cy="0" r="10" fill="#D6AF80"/>
+ <ellipse cx="25" cy="0" rx="6" ry="7" fill="#C49A6A"/>
+ <circle cx="29" cy="0" r="2.2" fill="#1A1410"/>
+ <ellipse cx="14" cy="-9" rx="4" ry="3" fill="#6E4B2A"/><ellipse cx="14" cy="9" rx="4" ry="3" fill="#6E4B2A"/>
+ <circle cx="21" cy="-4.5" r="1.4" fill="#1A1410"/><circle cx="21" cy="4.5" r="1.4" fill="#1A1410"/>
+ </g></g>
+</svg></div>
+<p class="caption" id="caption">The desk is standing by for the opening bell.</p>
+
+<section class="grid" aria-label="Account">
+  <div>
+    <h2>Statement</h2>
+    <dl class="statement" id="statement"></dl>
+  </div>
+  <div>
+    <h2>Balance since opening</h2>
+    <div class="chart"><svg id="chart" viewBox="0 0 600 240" role="img" aria-label="Paper balance over time"></svg></div>
+    <p class="legend"><i style="background:#8DBB93"></i>Bought<i style="background:#D88A86"></i>Sold<i style="background:none;border:1px dashed #B9AE95;border-radius:0;width:14px;height:0"></i>Starting $50</p>
+  </div>
+</section>
+
+<section aria-label="The desk">
+  <h2>The desk</h2>
+  <ul class="roster" id="roster"></ul>
+</section>
+
+<section aria-label="Minute book">
+  <h2>Minute book</h2>
+  <div class="scroll"><table class="book"><thead><tr><th>Date</th><th>Entry</th><th class="n">SPY close</th><th class="n c4">200-day</th><th class="n">Balance</th></tr></thead><tbody id="book"></tbody></table></div>
+  <p class="empty" id="book-empty" hidden>No entries yet. The first line posts after the next market open.</p>
+</section>
+
+<footer>
+  <p>House rules: paper money only, sized from $50, 1% risk per trade, 5% stop under entry. The desk holds SPY while it closes above its 200-day average.</p>
+  <p>Paper results show what the rule did. They do not predict what it will do.</p>
+</footer>
+</div>
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+  var D={rows:[],capital:50};
+  try{D=JSON.parse(document.getElementById('data').textContent)||D}catch(e){}
+  var rows=D.rows||[], cap=D.capital||50, last=rows[rows.length-1]||null;
+  var $=function(id){return document.getElementById(id)};
+  var money=function(v){v=Number(v);return (v<0?'-$':'$')+Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})};
+  var signed=function(v){v=Number(v);return (v>=0?'+$':'-$')+Math.abs(v).toFixed(2)};
+  var fmtDate=function(s){var d=new Date(s+'T12:00:00');return isNaN(d)?s:d.toLocaleDateString('en-US',{month:'short',day:'numeric'})};
+  var actWord={buy:'Bought',exit_signal:'Sold, trend broke',exit_stop:'Sold, stop hit',hold:'Held'};
+  var actCls={buy:'buy',exit_signal:'exit',exit_stop:'exit',hold:'hold'};
+
+  function tick(){try{$('clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})}catch(e){}}
+  tick();setInterval(tick,30000);
+
+  // statement
+  var bal=last?Number(last.virtual_equity):cap, qty=last?Number(last.position_qty):0;
+  var st=[
+    ['lead','Balance',money(bal),''],
+    ['','Since opening',signed(bal-cap),bal-cap>=0?'pos':'neg'],
+    ['','Signal',last?(last.signal==='long'?'Long SPY':'Flat, in cash'):'Waiting',''],
+    ['','Position',qty>0?qty.toFixed(4)+' SPY':'None',''],
+    ['','Stop',last&&last.stop_price?money(last.stop_price):'None set',''],
+    ['','Last entry',last?fmtDate(last.run_date):'Not yet','']
+  ];
+  st.forEach(function(s){var d=document.createElement('div');if(s[0])d.className=s[0];var dt=document.createElement('dt');dt.textContent=s[1];var dd=document.createElement('dd');dd.textContent=s[2];if(s[3])dd.className=s[3];d.appendChild(dt);d.appendChild(dd);$('statement').appendChild(d)});
+
+  // ticker + caption
+  if(last){
+    $('ticker').textContent='SPY '+money(last.close)+'\u2003\u2003200-day '+money(last.sma)+'\u2003\u2003'+(last.signal==='long'?'Above the line':'Below the line');
+    $('caption').textContent='Last session '+fmtDate(last.run_date)+'. '+(actWord[last.action]||'Held')+'.';
+  }
+
+  // roster
+  var stop=last&&last.stop_price?money(last.stop_price):null;
+  var say={
+    chairman: last?({buy:'Approved a buy of '+money(last.notional)+' in SPY.',exit_signal:'Called the exit. Trend broke.',exit_stop:'Called the exit. Stop was hit.',hold:'No change to the book today.'})[last.action]:'Standing by for the opening bell.',
+    sterling: last?'Read the tape. SPY closed at '+money(last.close)+'.':'Waiting on the first close.',
+    whitfield:last?'Data checked. Prices cleared for use.':'Nothing to check yet.',
+    professor:last?('Close is '+(last.signal==='long'?'above':'below')+' the 200-day average of '+money(last.sma)+'.'):'Needs 200 days of closes to start.',
+    windsor:  last&&last.action==='buy'?'Cut the position at '+money(last.notional)+'. 1% risk, 5% stop.':'No new size today. Ceiling is $10.00 a trade.',
+    bishop:   qty>0?'Guarding a stop at '+(stop||'5% under entry')+'.':'Book is flat. Doors open.',
+    hartley:  last&&last.order_id?'Order '+String(last.order_id).slice(0,8)+' sent to Alpaca paper.':'No orders to confirm today.',
+    tweed:    'Walking the floor. Good boy.'
+  };
+  var who=[['chairman','The Chairman','Chief of desk'],['sterling','Sterling','Scan'],['whitfield','Whitfield','Vet'],['professor','The Professor','Quant'],['windsor','Windsor','Size'],['bishop','Bishop','Risk'],['hartley','Hartley','Fills'],['tweed','Tweed','Floor walker']];
+  var lightColor=function(k){ if(!last) return '#B69145'; if(k==='bishop'&&last.action==='exit_stop') return '#D88A86'; if(last.action==='buy'&&(k==='windsor'||k==='hartley'||k==='chairman')) return '#8DBB93'; if(last.action.indexOf('exit')===0&&(k==='hartley'||k==='chairman')) return '#D88A86'; return '#8DBB93';};
+  who.forEach(function(w){
+    var li=document.createElement('li');var dot=document.createElement('span');dot.className='dot';dot.style.background=lightColor(w[0]);
+    var nm=document.createElement('div');nm.className='who';nm.textContent=w[1];var rl=document.createElement('span');rl.textContent=w[2];nm.appendChild(rl);
+    var sy=document.createElement('div');sy.className='say';sy.textContent=say[w[0]];
+    li.appendChild(dot);li.appendChild(nm);li.appendChild(sy);$('roster').appendChild(li);
+    var l=document.getElementById('light-'+w[0]);if(l)l.setAttribute('fill',lightColor(w[0]));
+  });
+
+  // chart
+  var svg=$('chart'),NS='http://www.w3.org/2000/svg';
+  function el(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e}
+  var vals=rows.map(function(r){return Number(r.virtual_equity)});
+  var lo=Math.min.apply(null,vals.concat([cap])), hi=Math.max.apply(null,vals.concat([cap]));
+  var pad=Math.max((hi-lo)*.15,.5); lo-=pad; hi+=pad;
+  var X=function(i){return 56+(vals.length>1?i*(530/(vals.length-1)):265)}, Y=function(v){return 210-(v-lo)/(hi-lo)*190};
+  [lo+pad,(lo+hi)/2,hi-pad].forEach(function(v){el('line',{x1:56,x2:586,y1:Y(v),y2:Y(v),stroke:'rgba(233,223,198,.10)'});var t=el('text',{x:48,y:Y(v)+4,'text-anchor':'end','class':'lbl'});t.textContent='$'+v.toFixed(2)});
+  el('line',{x1:56,x2:586,y1:Y(cap),y2:Y(cap),stroke:'#B9AE95','stroke-dasharray':'4 4','stroke-width':1});
+  if(vals.length){
+    el('polyline',{points:vals.map(function(v,i){return X(i)+','+Y(v)}).join(' '),fill:'none',stroke:'#D9B56A','stroke-width':2.2,'stroke-linejoin':'round'});
+    rows.forEach(function(r,i){if(r.action==='buy'||r.action.indexOf('exit')===0)el('circle',{cx:X(i),cy:Y(vals[i]),r:4.5,fill:r.action==='buy'?'#8DBB93':'#D88A86',stroke:'#0B1626','stroke-width':1.5})});
+    var a=el('text',{x:56,y:232,'class':'lbl'});a.textContent=fmtDate(rows[0].run_date);
+    var b=el('text',{x:586,y:232,'text-anchor':'end','class':'lbl'});b.textContent=fmtDate(last.run_date);
+  } else { var t=el('text',{x:321,y:120,'text-anchor':'middle','class':'lbl'});t.textContent='The line starts after the first session.'; }
+
+  // minute book
+  if(!rows.length){$('book-empty').hidden=false}
+  rows.slice(-20).reverse().forEach(function(r){
+    var tr=document.createElement('tr');
+    [[fmtDate(r.run_date),''],[actWord[r.action]||r.action,'ent '+(actCls[r.action]||'hold')],[money(r.close),'n'],[money(r.sma),'n c4'],[money(r.virtual_equity),'n']].forEach(function(c){var td=document.createElement('td');td.textContent=c[0];if(c[1]){var parts=c[1].split(' ');if(parts[0]==='n')td.className=c[1];else{var s=document.createElement('span');s.className=c[1];s.textContent=c[0];td.textContent='';td.appendChild(s)}}tr.appendChild(td)});
+    $('book').appendChild(tr);
+  });
+
+  // reduced motion
+  try{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)document.getElementById('room').pauseAnimations()}catch(e){}
+})();
+</script>
+</body>
+</html>
