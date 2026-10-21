@@ -1,0 +1,44 @@
+name: desk
+on:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "backtest, stock or crypto"
+        default: "backtest"
+  schedule:
+    - cron: "*/15 13-21 * * 1-5"
+    - cron: "7 * * * *"
+    - cron: "30 12 * * 0"
+permissions:
+  contents: write
+concurrency:
+  group: desk
+  cancel-in-progress: false
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - id: j
+        run: |
+          case "${{ github.event.schedule }}" in
+            "*/15 13-21 * * 1-5") echo "job=stock" >> "$GITHUB_OUTPUT" ;;
+            "7 * * * *") echo "job=crypto" >> "$GITHUB_OUTPUT" ;;
+            "30 12 * * 0") echo "job=backtest" >> "$GITHUB_OUTPUT" ;;
+            *) echo "job=${{ inputs.job }}" >> "$GITHUB_OUTPUT" ;;
+          esac
+      - run: pip install -r requirements.txt
+      - run: |
+          if [ "${{ steps.j.outputs.job }}" = "backtest" ]; then python desk_backtest.py; else python desk.py "${{ steps.j.outputs.job }}"; fi
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+      - run: |
+          git config user.name "gregory-row-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A approved.json failures.csv autopsy.md desk_ledger.csv desk_trades.csv state.json 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "desk: ${{ steps.j.outputs.job }}" && git pull --rebase -q && git push)
