@@ -1,0 +1,56 @@
+<!-- Gregory Row hub: buy-and-hold benchmark panel.
+     Paste this block into gregory-row-live/index.html where the panel should sit (any spot inside <body>).
+     It reads benchmark.json and approved.json straight from the public repo, so no Netlify function or key is needed.
+     The Actions desk job refreshes both files on every run. -->
+<section id="gr-bench" aria-label="Buy-and-hold benchmark">
+  <style>
+    #gr-bench{--g:#0F2A22;--n:#14213D;--p:#EFE6D2;--b:#B69145;--b2:#E6C46A;--o:#7C1722;--up:#8DBB93;
+      font-family:"Instrument Sans",system-ui,sans-serif;color:var(--p);background:linear-gradient(160deg,var(--g),var(--n));
+      border:1px solid rgba(182,145,69,.45);border-radius:14px;padding:16px;margin:12px 0;max-width:100%;box-sizing:border-box}
+    #gr-bench h2{font-family:"Bodoni Moda",Georgia,serif;font-weight:600;font-size:20px;margin:0 0 2px;letter-spacing:.3px}
+    #gr-bench .sub{font-size:12px;color:#B9AE95;margin:0 0 12px}
+    #gr-bench .row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+    #gr-bench .t{flex:1 1 120px;border:1px solid rgba(182,145,69,.3);border-radius:10px;padding:8px 10px}
+    #gr-bench .t small{display:block;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--b)}
+    #gr-bench .t b{font:600 18px ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+    #gr-bench .up{color:var(--up)} #gr-bench .dn{color:#D9606D}
+    #gr-bench svg{width:100%;height:90px;display:block}
+    #gr-bench table{width:100%;border-collapse:collapse;font:12px ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+    #gr-bench td{padding:4px 2px;border-top:1px solid rgba(182,145,69,.18)} #gr-bench td:not(:first-child){text-align:right}
+    #gr-bench .desk{font-size:12px;margin-top:10px;color:#B9AE95}
+  </style>
+  <h2>The Benchmark</h2>
+  <p class="sub" id="gr-b-sub">$50 split five ways and simply held. The desk has to beat this to earn a trade.</p>
+  <div class="row"><div class="t"><small>Benchmark</small><b id="gr-b-eq">--</b></div>
+    <div class="t"><small>Since inception</small><b id="gr-b-ch">--</b></div></div>
+  <svg id="gr-b-svg" viewBox="0 0 300 90" preserveAspectRatio="none" role="img" aria-label="Benchmark equity curve"></svg>
+  <table id="gr-b-legs"></table>
+  <div class="desk" id="gr-b-desk">Desk: loading gate…</div>
+  <script>
+  (function(){
+    var RAW="https://raw.githubusercontent.com/destined-lab/gregory-row/main/";
+    var $=function(i){return document.getElementById(i)};
+    function money(v){return "$"+v.toFixed(2)}
+    function pct(v){return (v>=0?"+":"")+(v*100).toFixed(2)+"%"}
+    function load(){
+      fetch(RAW+"benchmark.json?t="+Date.now()).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(b){
+        var ch=b.equity/b.capital-1;
+        $("gr-b-eq").textContent=money(b.equity);
+        var c=$("gr-b-ch");c.textContent=pct(ch);c.className=ch>=0?"up":"dn";
+        $("gr-b-sub").textContent="$"+b.capital+" split five ways on "+b.inception+" and held. Marked "+b.asof.slice(0,16).replace("T"," ")+" UTC.";
+        var pts=b.curve.map(function(p){return p[1]}),lo=Math.min.apply(0,pts.concat([b.capital])),hi=Math.max.apply(0,pts.concat([b.capital])),sp=(hi-lo)||1;
+        var X=function(i){return pts.length<2?150:i*300/(pts.length-1)},Y=function(v){return 84-(v-lo)/sp*78};
+        $("gr-b-svg").innerHTML='<line x1="0" x2="300" y1="'+Y(b.capital)+'" y2="'+Y(b.capital)+'" stroke="#B69145" stroke-opacity=".35" stroke-dasharray="3 4"/>'+
+          '<polyline fill="none" stroke="#E6C46A" stroke-width="1.8" vector-effect="non-scaling-stroke" points="'+pts.map(function(v,i){return X(i)+","+Y(v)}).join(" ")+'"/>';
+        $("gr-b-legs").innerHTML=Object.keys(b.legs).map(function(k){var l=b.legs[k],r=l.last/l.entry-1;
+          return "<tr><td>"+k+"</td><td>"+money(l.value)+"</td><td class='"+(r>=0?"up":"dn")+"'>"+pct(r)+"</td></tr>"}).join("");
+      }).catch(function(){$("gr-b-eq").textContent="--";$("gr-b-sub").textContent="Benchmark starts on the next desk run."});
+      fetch(RAW+"approved.json?t="+Date.now()).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(a){
+        var ok=Object.keys(a).filter(function(k){return a[k].ok});
+        $("gr-b-desk").textContent="Desk gate: "+(ok.length?"approved "+ok.join(", "):"approved none. The desk is flat until a rule beats holding.");
+      }).catch(function(){$("gr-b-desk").textContent="Desk gate: no verdict published yet."});
+    }
+    load(); setInterval(load,300000);
+  })();
+  </script>
+</section>

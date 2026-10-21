@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       job:
-        description: "backtest, stock or crypto"
+        description: "backtest, stock, crypto or benchmark"
         default: "backtest"
   schedule:
     - cron: "*/15 13-21 * * 1-5"
@@ -33,12 +33,20 @@ jobs:
           esac
       - run: pip install -r requirements.txt
       - run: |
-          if [ "${{ steps.j.outputs.job }}" = "backtest" ]; then python desk_backtest.py; else python desk.py "${{ steps.j.outputs.job }}"; fi
+          case "${{ steps.j.outputs.job }}" in
+            backtest) python desk_backtest.py ;;
+            benchmark) true ;;
+            *) python desk.py "${{ steps.j.outputs.job }}" ;;
+          esac
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+      - run: python desk_benchmark.py || echo "benchmark update failed (desk unaffected)"
         env:
           ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
           ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
       - run: |
           git config user.name "gregory-row-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add -A approved.json failures.csv autopsy.md desk_ledger.csv desk_trades.csv state.json 2>/dev/null || true
+          for f in approved.json failures.csv autopsy.md desk_ledger.csv desk_trades.csv state.json benchmark.json; do [ -e "$f" ] && git add "$f"; done
           git diff --cached --quiet || (git commit -m "desk: ${{ steps.j.outputs.job }}" && git pull --rebase -q && git push)

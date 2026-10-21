@@ -59,7 +59,7 @@ def run(b, which="all", now=None, check_clock=True):
         key = sym.replace("/", "")
         until = st["pause"].get(sym)
         if until and now < pd.Timestamp(until): continue
-        start = (now - pd.Timedelta(days={"15Min": 70, "1Hour": 14, "4Hour": 120}[m["tf"]])).to_pydatetime()
+        start = (now - pd.Timedelta(days={"15Min": 70, "1Hour": 14, "4Hour": 120, "1Day": 420}[m["tf"]])).to_pydatetime()
         df = drop_incomplete(b.intraday(sym, m, start), m["mins"], now)
         if len(df) < 60: print(sym, "not enough bars"); continue
         bar = df.index[-1].isoformat()
@@ -90,6 +90,11 @@ def run(b, which="all", now=None, check_clock=True):
             grp = next((g for g, mem in risk.CORR_GROUPS.items() if sym in mem), None)
             if grp and any(x.replace("/", "") in pos for x in risk.CORR_GROUPS[grp] if x != sym):
                 log(now, sym, m["strat"], price, sig, "skip", note="correlation filter: a sibling is already long"); st["last_bar"][sym] = bar; continue
+            mine = [x for x, mm in S.MARKETS.items() if mm["group"] == m["group"] and x != sym]
+            if any(x.replace("/", "") in pos for x in mine):     # stricter than risk.py: one long per strategy group too
+                log(now, sym, m["strat"], price, sig, "skip", note="group filter: a sibling is already long"); st["last_bar"][sym] = bar; continue
+            if len(pos) >= round(1 / risk.SLEEVE):                # never more sleeves open than the book holds
+                log(now, sym, m["strat"], price, sig, "skip", note="book full"); st["last_bar"][sym] = bar; continue
             notional = risk.sleeve_notional(eq)
             if notional >= 1:
                 oid = b.buy(sym, notional, m["kind"] == "crypto"); st["entry"][sym] = bar

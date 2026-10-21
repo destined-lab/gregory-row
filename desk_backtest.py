@@ -80,7 +80,7 @@ def main(frames=None):
     today = dt.date.today().isoformat()
     for sym, m in S.MARKETS.items():
         try:
-            df, reg = frames[sym] if frames else load(b, sym, m, 3 if m["tf"] == "15Min" else 5)
+            df, reg = frames[sym] if frames else load(b, sym, m, m.get("years", 3 if m["tf"] == "15Min" else 5))
         except Exception as e:
             print(sym, "data error:", e); approved[sym] = dict(ok=False, why=["data error"]); continue
         if len(df) < 300:
