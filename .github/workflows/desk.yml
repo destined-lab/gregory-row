@@ -41,6 +41,11 @@ jobs:
         env:
           ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
           ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
+      - if: steps.j.outputs.job != 'backtest'
+        run: python hold.py || echo "hold step failed (desk unaffected)"
+        env:
+          ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
+          ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
       - run: python desk_benchmark.py || echo "benchmark update failed (desk unaffected)"
         env:
           ALPACA_KEY: ${{ secrets.ALPACA_KEY }}
@@ -48,5 +53,5 @@ jobs:
       - run: |
           git config user.name "gregory-row-bot"
           git config user.email "bot@users.noreply.github.com"
-          for f in approved.json failures.csv autopsy.md desk_ledger.csv desk_trades.csv state.json benchmark.json; do [ -e "$f" ] && git add "$f"; done
+          for f in approved.json failures.csv autopsy.md desk_ledger.csv desk_trades.csv state.json benchmark.json hold.json; do [ -e "$f" ] && git add "$f"; done
           git diff --cached --quiet || (git commit -m "desk: ${{ steps.j.outputs.job }}" && git pull --rebase -q && git push)

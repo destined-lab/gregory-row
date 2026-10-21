@@ -43,7 +43,8 @@ def run(b, which="all", now=None, check_clock=True):
     verify_risk_lock()
     now = now or pd.Timestamp.now(tz="UTC")
     approved, st = jload("approved.json", {}), jload(STATE, {"peak": risk.CAPITAL, "halted": False, "last_bar": {}, "entry": {}, "pause": {}})
-    trades = read_trades(); pos = b.positions()
+    trades = read_trades(); own = {m.replace('/', '') for m in S.MARKETS}
+    pos = {k: v for k, v in b.positions().items() if k in own}   # desk only sees and risks its own positions, never The Hold
     eq = book_equity(trades, pos); st["peak"] = max(st["peak"], eq)
     if st["halted"] or eq <= st["peak"] * (1 - risk.MAX_DRAWDOWN):
         if not st["halted"]:
