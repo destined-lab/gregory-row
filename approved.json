@@ -1,0 +1,111 @@
+{
+ "SPY": {
+  "ok": false,
+  "why": [
+   "negative total return",
+   "not profitable in both halves (-10.9% / -4.1%)",
+   "less return per unit of drawdown than buy and hold"
+  ],
+  "asof": "2026-10-21",
+  "total": -0.1459,
+  "maxdd": -0.1568,
+  "bh_total": 0.9076,
+  "bh_maxdd": -0.2084,
+  "trades": 361,
+  "half1": -0.1091,
+  "half2": -0.0413
+ },
+ "QQQ": {
+  "ok": false,
+  "why": [
+   "negative total return",
+   "not profitable in both halves (-12.2% / 1.9%)",
+   "less return per unit of drawdown than buy and hold"
+  ],
+  "asof": "2026-10-21",
+  "total": -0.1058,
+  "maxdd": -0.1574,
+  "bh_total": 1.0756,
+  "bh_maxdd": -0.2511,
+  "trades": 404,
+  "half1": -0.1221,
+  "half2": 0.0186
+ },
+ "BTC/USD": {
+  "ok": false,
+  "why": [
+   "negative total return",
+   "not profitable in both halves (-82.7% / -90.4%)",
+   "less return per unit of drawdown than buy and hold"
+  ],
+  "asof": "2026-10-21",
+  "total": -0.9834,
+  "maxdd": -0.9838,
+  "bh_total": 0.3096,
+  "bh_maxdd": -0.7722,
+  "trades": 710,
+  "half1": -0.8272,
+  "half2": -0.904
+ },
+ "GLD": {
+  "ok": false,
+  "why": [
+   "less return per unit of drawdown than buy and hold"
+  ],
+  "asof": "2026-10-21",
+  "total": 0.3614,
+  "maxdd": -0.2899,
+  "bh_total": 1.2648,
+  "bh_maxdd": -0.2676,
+  "trades": 100,
+  "half1": 0.1588,
+  "half2": 0.1748
+ },
+ "USO": {
+  "ok": false,
+  "why": [
+   "negative total return",
+   "not profitable in both halves (-7.2% / -0.6%)",
+   "less return per unit of drawdown than buy and hold"
+  ],
+  "asof": "2026-10-21",
+  "total": -0.077,
+  "maxdd": -0.6588,
+  "bh_total": 1.7991,
+  "bh_maxdd": -0.3624,
+  "trades": 178,
+  "half1": -0.0716,
+  "half2": -0.0058
+ },
+ "DIA": {
+  "ok": false,
+  "why": [
+   "negative total return",
+   "not profitable in both halves (-9.7% / 4.7%)",
+   "less return per unit of drawdown than buy and hold"
+  ],
+  "asof": "2026-10-21",
+  "total": -0.0553,
+  "maxdd": -0.1296,
+  "bh_total": 1.1975,
+  "bh_maxdd": -0.2074,
+  "trades": 72,
+  "half1": -0.0973,
+  "half2": 0.0466
+ },
+ "IWM": {
+  "ok": false,
+  "why": [
+   "not profitable in both halves (-2.4% / 10.0%)",
+   "less return per unit of drawdown than buy and hold"
+  ],
+  "asof": "2026-10-21",
+  "total": 0.0736,
+  "maxdd": -0.1304,
+  "bh_total": 1.0143,
+  "bh_maxdd": -0.3194,
+  "trades": 64,
+  "half1": -0.0242,
+  "half2": 0.1002
+ }
+}
