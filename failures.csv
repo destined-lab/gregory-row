@@ -17,3 +17,10 @@ date,market,strategy,why_failed,rule_total,buyhold_total
 2026-10-25,USO,trend,negative total return; not profitable in both halves (-8.5% / 6.4%); less return per unit of drawdown than buy and hold,-0.026,1.9587
 2026-10-25,DIA,turn_of_month,negative total return; not profitable in both halves (-9.7% / 4.7%); less return per unit of drawdown than buy and hold,-0.0553,1.1856
 2026-10-25,IWM,rsi2_pullback,not profitable in both halves (-2.4% / 10.0%); less return per unit of drawdown than buy and hold,0.0736,1.0137
+2026-11-01,SPY,meanrev,negative total return; not profitable in both halves (-10.0% / -6.4%); less return per unit of drawdown than buy and hold,-0.1574,0.8215
+2026-11-01,QQQ,meanrev,negative total return; not profitable in both halves (-10.3% / -2.9%); less return per unit of drawdown than buy and hold,-0.1291,0.933
+2026-11-01,BTC/USD,breakout,negative total return; not profitable in both halves (-82.1% / -90.4%); less return per unit of drawdown than buy and hold,-0.9828,0.2238
+2026-11-01,GLD,trend,less return per unit of drawdown than buy and hold,0.3855,1.1588
+2026-11-01,USO,trend,negative total return; not profitable in both halves (-4.7% / 1.6%); less return per unit of drawdown than buy and hold,-0.0319,2.0121
+2026-11-01,DIA,turn_of_month,negative total return; not profitable in both halves (-9.7% / 3.6%); less return per unit of drawdown than buy and hold,-0.0652,1.1673
+2026-11-01,IWM,rsi2_pullback,not profitable in both halves (-2.9% / 10.6%); less return per unit of drawdown than buy and hold,0.0736,1.0404
