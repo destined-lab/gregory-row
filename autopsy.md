@@ -1,6 +1,6 @@
 # Autopsy of failed ideas
 
-## SPY (meanrev): negative total return; not profitable in both halves (-10.0% / -6.4%); less return per unit of drawdown than buy and hold
+## SPY (meanrev): negative total return; not profitable in both halves (-10.0% / -7.2%); less return per unit of drawdown than buy and hold
 Worst 5 trades:
 - in 2025-01-24 19:00 out 2025-01-27 14:30  -2.19%  (stop)
 - in 2025-01-31 19:15 out 2025-02-03 14:30  -2.13%  (stop)
@@ -8,7 +8,7 @@ Worst 5 trades:
 - in 2024-11-14 14:45 out 2024-11-15 14:30  -1.15%  (stop)
 - in 2024-04-30 15:15 out 2024-05-01 13:30  -1.12%  (stop)
 
-## QQQ (meanrev): negative total return; not profitable in both halves (-10.3% / -2.9%); less return per unit of drawdown than buy and hold
+## QQQ (meanrev): negative total return; not profitable in both halves (-11.0% / -3.8%); less return per unit of drawdown than buy and hold
 Worst 5 trades:
 - in 2025-01-24 19:00 out 2025-01-27 14:30  -3.50%  (stop)
 - in 2026-10-29 13:45 out 2026-10-30 13:30  -2.61%  (signal)
@@ -16,7 +16,7 @@ Worst 5 trades:
 - in 2025-01-31 19:30 out 2025-02-03 14:30  -2.45%  (stop)
 - in 2024-02-12 19:30 out 2024-02-13 14:30  -2.09%  (stop)
 
-## BTC/USD (breakout): negative total return; not profitable in both halves (-82.1% / -90.4%); less return per unit of drawdown than buy and hold
+## BTC/USD (breakout): negative total return; not profitable in both halves (-82.7% / -90.4%); less return per unit of drawdown than buy and hold
 Worst 5 trades:
 - in 2023-02-06 07:00 out 2023-02-06 11:00  -1.68%  (stop)
 - in 2025-06-03 15:00 out 2025-06-03 17:00  -1.34%  (stop)
@@ -32,7 +32,7 @@ Worst 5 trades:
 - in 2022-06-10 16:00 out 2022-06-13 12:00  -1.83%  (stop)
 - in 2026-07-30 16:00 out 2026-07-31 12:00  -1.72%  (stop)
 
-## USO (trend): negative total return; not profitable in both halves (-4.7% / 1.6%); less return per unit of drawdown than buy and hold
+## USO (trend): negative total return; not profitable in both halves (-3.1% / -7.9%); less return per unit of drawdown than buy and hold
 Worst 5 trades:
 - in 2024-10-25 16:00 out 2024-10-28 12:00  -6.25%  (stop)
 - in 2021-12-17 16:00 out 2021-12-20 12:00  -4.90%  (stop)
@@ -48,7 +48,7 @@ Worst 5 trades:
 - in 2021-06-01 04:00 out 2021-06-03 04:00  -1.20%  (stop)
 - in 2025-08-29 04:00 out 2025-09-02 04:00  -1.10%  (stop)
 
-## IWM (rsi2_pullback): not profitable in both halves (-2.9% / 10.6%); less return per unit of drawdown than buy and hold
+## IWM (rsi2_pullback): not profitable in both halves (-3.0% / 10.6%); less return per unit of drawdown than buy and hold
 Worst 5 trades:
 - in 2021-11-24 05:00 out 2021-11-26 05:00  -2.05%  (stop)
 - in 2021-08-18 04:00 out 2021-08-19 04:00  -1.79%  (stop)
